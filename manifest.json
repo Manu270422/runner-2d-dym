@@ -1,0 +1,28 @@
+{
+  "name": "Runner 2D DyM",
+  "short_name": "Runner2D",
+  "description": "Juego de plataformas estilo Cyberpunk",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#1a1d24",
+  "theme_color": "#1abc9c",
+  "orientation": "landscape",
+  "icons": [
+    {
+      "src": "assets/images/logo.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/images/logo.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/images/logo.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

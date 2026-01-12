@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Runner 2D - Offline</title>
+  <style>
+    /* Usamos la misma paleta de colores del juego para mantener la inmersión */
+    :root {
+      --bg: #0f1115;
+      --panel: #151922;
+      --border: #2a2f3a;
+      --text: #ffffff;
+      --accent: #e74c3c; /* Rojo para indicar error/offline */
+      --btn: #1abc9c;
+    }
+    
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: monospace; /* Fuente estilo código */
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      text-align: center;
+      padding: 20px;
+      box-sizing: border-box;
+    }
+
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      padding: 40px;
+      border-radius: 8px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+      max-width: 400px;
+      width: 100%;
+    }
+
+    h1 {
+      color: var(--accent);
+      margin-top: 0;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      font-size: 24px;
+    }
+
+    p {
+      line-height: 1.6;
+      opacity: 0.8;
+      margin-bottom: 30px;
+    }
+
+    button {
+      background: var(--btn);
+      color: #111;
+      border: none;
+      padding: 12px 24px;
+      font-family: monospace;
+      font-weight: bold;
+      font-size: 16px;
+      cursor: pointer;
+      border-radius: 4px;
+      transition: transform 0.1s;
+    }
+
+    button:active {
+      transform: scale(0.95);
+    }
+
+    .icon {
+      font-size: 48px;
+      margin-bottom: 20px;
+      display: block;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+    <span class="icon">📡❌</span>
+    <h1>SYSTEM OFFLINE</h1>
+    <p>Parece que perdiste la conexión a la red. El juego volverá a cargar automáticamente cuando detectemos señal.</p>
+    
+    <button onclick="window.location.reload()">REINTENTAR AHORA</button>
+  </div>
+
+  <script>
+    // MAGIA: Escucha si vuelve el internet y recarga solo
+    window.addEventListener('online', () => {
+      console.log('Conexión detectada. Recargando...');
+      window.location.reload();
+    });
+  </script>
+
+</body>
+</html>
