@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 90 38" width="90" height="38">
+  <!-- Sombra -->
+  <ellipse cx="45" cy="36" rx="40" ry="4" fill="#000" opacity="0.2"/>
+  <!-- Tronco principal -->
+  <rect x="2" y="12" width="86" height="22" rx="11" fill="#6B4020"/>
+  <!-- Cara izquierda (corte) -->
+  <ellipse cx="13" cy="23" rx="11" ry="11" fill="#8B5530"/>
+  <ellipse cx="13" cy="23" rx="8" ry="8" fill="#7B4525"/>
+  <ellipse cx="13" cy="23" rx="5" ry="5" fill="#6B3515"/>
+  <ellipse cx="13" cy="23" rx="2" ry="2" fill="#5B2508"/>
+  <!-- Textura de corteza -->
+  <path d="M14,12 Q25,10 36,13 Q47,10 58,13 Q69,10 80,13" fill="none" stroke="#5a3010" stroke-width="1.5" opacity="0.6"/>
+  <path d="M14,22 Q25,20 36,23 Q47,20 58,23 Q69,20 80,23" fill="none" stroke="#5a3010" stroke-width="1" opacity="0.4"/>
+  <!-- Cara derecha (punta) -->
+  <ellipse cx="80" cy="23" rx="8" ry="11" fill="#5a3010" opacity="0.6"/>
+  <!-- Raíces pequeñas que salen -->
+  <path d="M30,33 Q28,40 24,42" fill="none" stroke="#4a2808" stroke-width="2.5" stroke-linecap="round"/>
+  <path d="M50,34 Q52,42 56,44" fill="none" stroke="#4a2808" stroke-width="2" stroke-linecap="round"/>
+  <!-- Musgo en la parte superior -->
+  <ellipse cx="45" cy="13" rx="20" ry="4" fill="#3a7a20" opacity="0.5"/>
+  <ellipse cx="35" cy="13" rx="10" ry="3" fill="#4a9a28" opacity="0.4"/>
+</svg>

@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 80" width="60" height="80">
+  <defs>
+    <radialGradient id="glowFire" cx="50%" cy="80%" r="60%">
+      <stop offset="0%" stop-color="#ff8800" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="#ff0000" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <!-- Glow de suelo -->
+  <ellipse cx="30" cy="72" rx="22" ry="6" fill="url(#glowFire)"/>
+  <!-- Troncos -->
+  <rect x="16" y="58" width="6" height="18" rx="2" fill="#4a2a0a" transform="rotate(-20,19,67)"/>
+  <rect x="36" y="58" width="6" height="18" rx="2" fill="#4a2a0a" transform="rotate(20,39,67)"/>
+  <rect x="26" y="60" width="6" height="16" rx="2" fill="#5a3a1a"/>
+  <!-- Brasas -->
+  <ellipse cx="30" cy="70" rx="14" ry="5" fill="#cc4400" opacity="0.8"/>
+  <!-- Llamas exteriores -->
+  <path d="M18,65 Q14,45 20,30 Q22,45 26,38 Q24,52 30,45 Q36,52 34,38 Q38,45 40,30 Q46,45 42,65 Z" fill="#ff6600" opacity="0.9"/>
+  <!-- Llamas medias -->
+  <path d="M22,65 Q20,50 24,38 Q26,50 30,43 Q34,50 36,38 Q40,50 38,65 Z" fill="#ff9900"/>
+  <!-- Llamas centrales -->
+  <path d="M25,65 Q24,54 28,44 Q30,50 32,44 Q36,54 35,65 Z" fill="#ffcc00"/>
+  <!-- Punta de la llama -->
+  <path d="M27,65 Q29,55 30,48 Q31,55 33,65 Z" fill="#ffffff" opacity="0.7"/>
+  <!-- Humo (partículas) -->
+  <circle cx="25" cy="25" r="5" fill="#333" opacity="0.2"/>
+  <circle cx="35" cy="18" r="4" fill="#444" opacity="0.15"/>
+  <circle cx="28" cy="10" r="6" fill="#333" opacity="0.1"/>
+</svg>

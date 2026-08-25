@@ -1,77 +1,54 @@
-const CACHE_NAME = 'runner2d-v1';
+// sw.js — Service Worker para PWA offline
+// Estrategia: Cache First para assets, Network First para HTML
 
-// LISTA CRÍTICA: Aquí deben estar TODOS los archivos que tu juego necesita para arrancar.
-// Agregué las carpetas 'entities' y los iconos que configuramos antes.
-const FILES_TO_CACHE = [
+const CACHE = 'runner2d-dym-v2';
+
+const PRECACHE = [
   './',
   './index.html',
   './offline.html',
-  './manifest.json',
-  
-  // Módulos del Sistema
-  './src/main.js',
-  './src/system/Game.js',
-  './src/system/UI.js',
-  './src/system/Audio.js',
-  './src/system/Storage.js',
-  './src/system/Particles.js', // ¡Faltaba este!
-  
-  // Escenas y Entidades
-  './src/scenes/SceneRunner.js',
-  './src/entities/Player.js',         // ¡Faltaba este!
-  './src/entities/ShieldPowerUp.js',  // ¡Faltaba este!
-
-  // Recursos (Assets)
-  './assets/audio/jump.wav',
-  './assets/audio/hit.wav',
-  './assets/images/logo.png',
-  './assets/icons/icon-192.png' // Importante para el install prompt
+  './manifest.json'
 ];
 
-// 1. INSTALACIÓN: Descarga los archivos al caché
 self.addEventListener('install', e => {
-  console.log('[SW] Instalando versión:', CACHE_NAME);
   e.waitUntil(
-    caches.open(CACHE_NAME)
-      .then(cache => {
-        console.log('[SW] Cacheando archivos...');
-        return cache.addAll(FILES_TO_CACHE);
-      })
-      .then(() => self.skipWaiting()) // Fuerza al SW a activarse de una vez
+    caches.open(CACHE)
+      .then(c => c.addAll(PRECACHE))
+      .then(() => self.skipWaiting())
   );
 });
 
-// 2. ACTIVACIÓN: Limpia cachés viejos (Vital para cuando actualices el juego)
 self.addEventListener('activate', e => {
-  console.log('[SW] Activado');
   e.waitUntil(
-    caches.keys().then(keyList => {
-      return Promise.all(keyList.map(key => {
-        if (key !== CACHE_NAME) {
-          console.log('[SW] Borrando caché antiguo:', key);
-          return caches.delete(key);
-        }
-      }));
-    })
-    .then(() => self.clients.claim()) // Toma control de la página inmediatamente
+    caches.keys().then(keys =>
+      Promise.all(keys.filter(k => k !== CACHE).map(k => caches.delete(k)))
+    ).then(() => self.clients.claim())
   );
 });
 
-// 3. INTERCEPTOR (FETCH): Estrategia "Network First, falling back to Cache"
 self.addEventListener('fetch', e => {
+  const url = new URL(e.request.url);
+
+  // Yo uso Cache First para JS/CSS/audio/imágenes (cambian poco)
+  if (/\.(js|css|wav|mp3|ogg|png|jpg|svg|woff2?)$/.test(url.pathname)) {
+    e.respondWith(
+      caches.match(e.request).then(cached => {
+        if (cached) return cached;
+        return fetch(e.request).then(res => {
+          const clone = res.clone();
+          caches.open(CACHE).then(c => c.put(e.request, clone));
+          return res;
+        }).catch(() => caches.match('./offline.html'));
+      })
+    );
+    return;
+  }
+
+  // Para el resto (HTML, navegación) — Network First
   e.respondWith(
     fetch(e.request)
-      .catch(() => {
-        // Si no hay internet, buscamos en caché
-        return caches.match(e.request).then(response => {
-          if (response) {
-            return response;
-          }
-          // Si no está en caché y es una navegación (HTML), damos offline.html
-          if (e.request.mode === 'navigate') {
-            return caches.match('./offline.html');
-          }
-        });
-      })
+      .catch(() => caches.match(e.request)
+        .then(res => res || caches.match('./offline.html'))
+      )
   );
 });

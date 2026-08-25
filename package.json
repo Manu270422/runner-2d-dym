@@ -1,0 +1,17 @@
+{
+  "name": "runner-2d-dym",
+  "version": "2.0.0",
+  "description": "Runner 2D DyM — Endless Runner Cyberpunk con Phaser 3",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "phaser": "^3.88.0"
+  },
+  "devDependencies": {
+    "vite": "^5.4.0"
+  }
+}

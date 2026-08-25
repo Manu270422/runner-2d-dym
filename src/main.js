@@ -1,80 +1,76 @@
-import { Game } from './system/Game.js';
-import { SceneRunner } from './scenes/SceneRunner.js';
+// main.js
+// Yo inicializo Phaser 3 con Scale Manager para responsive real en todos los dispositivos.
 
-const canvas = document.getElementById('game');
+import Phaser from 'phaser';
+import { VIRTUAL_W, VIRTUAL_H } from './config/GameConfig.js';
+import { BootScene }    from './scenes/BootScene.js';
+import { PreloadScene } from './scenes/PreloadScene.js';
+import { MenuScene }    from './scenes/MenuScene.js';
+import { PlayScene }    from './scenes/PlayScene.js';
+import { GameOverScene } from './scenes/GameOverScene.js';
 
-// ==========================================
-// 1. CONFIGURACIÓN DEL MOTOR
-// ==========================================
+// Yo uso FIT para que Phaser escale el canvas manteniendo el aspect ratio en cualquier pantalla
+const config = {
+  type: Phaser.AUTO,
+  width:  VIRTUAL_W,
+  height: VIRTUAL_H,
+  backgroundColor: '#0a0c12',
+  parent: 'game-container',
 
-// MEJORA MOBILE (Punto 2): Evitamos gestos del navegador en el canvas
-canvas.style.touchAction = 'none'; 
-canvas.tabIndex = 1; // Permite que el canvas reciba foco del teclado
-canvas.focus();      // Enfocar inmediatamente
+  // Yo uso Arcade Physics — ligero y perfecto para un runner 2D
+  physics: {
+    default: 'arcade',
+    arcade: {
+      gravity: { y: 0 }, // Yo gestiono gravedad en el Player directamente para más control
+      debug: false        // Cambiar a true para ver hitboxes durante desarrollo
+    }
+  },
 
-// Inicializamos el juego a 60 FPS con resolución virtual HD (16:9)
-const game = new Game(canvas, 60, { virtualWidth: 960, virtualHeight: 540 });
+  // Yo uso el Scale Manager de Phaser para responsive real sin código extra
+  scale: {
+    mode: Phaser.Scale.FIT,
+    autoCenter: Phaser.Scale.CENTER_BOTH,
+    // Phaser maneja el canvas y el redimensionado automáticamente
+  },
 
-// ==========================================
-// 2. INICIAR ESCENA
-// ==========================================
+  scene: [
+    BootScene,
+    PreloadScene,
+    MenuScene,
+    PlayScene,
+    GameOverScene
+  ],
 
-const scene = new SceneRunner(game);
-game.setScene(scene);
-game.start();
+  render: {
+    antialias: false,       // Pixel art nítido
+    pixelArt: true,
+    roundPixels: true,      // Evita subpixel bleeding en sprites alineados a la cuadrícula
+    powerPreference: 'high-performance'
+  }
+};
 
-// ==========================================
-// 3. GESTIÓN DE ENERGÍA (VISIBILITY API)
-// ==========================================
-// Pausa automática si cambias de pestaña
+const game = new Phaser.Game(config);
+
+// Yo pauso el juego automáticamente cuando el usuario cambia de pestaña
 document.addEventListener('visibilitychange', () => {
   if (document.hidden) {
-    game.pause();
+    game.scene.scenes.forEach(s => {
+      if (s.scene.isActive() && s.physics) s.physics.pause();
+    });
   } else {
-    game.resume();
-    canvas.focus(); 
+    game.scene.scenes.forEach(s => {
+      if (s.scene.isActive() && s.physics) s.physics.resume();
+    });
   }
 });
 
-// ==========================================
-// 4. ESCALADO INTELIGENTE (RESPONSIVE)
-// ==========================================
-function fitCanvas() {
-  const panel = canvas.parentElement; 
-  const availableW = panel ? panel.clientWidth : window.innerWidth;
-  const availableH = panel ? panel.clientHeight : window.innerHeight;
-
-  const maxW = availableW - 4; 
-  const maxH = availableH - 4;
-
-  const aspect = game.virtualWidth / game.virtualHeight;
-  
-  let cssW = maxW;
-  let cssH = cssW / aspect;
-
-  if (cssH > maxH) {
-    cssH = maxH;
-    cssW = cssH * aspect;
-  }
-
-  canvas.style.width = `${cssW}px`;
-  canvas.style.height = `${cssH}px`;
-
-  game.updateDeviceScale();
-}
-
-let resizeTimeout;
-window.addEventListener('resize', () => {
-    clearTimeout(resizeTimeout);
-    resizeTimeout = setTimeout(fitCanvas, 100);
-});
-fitCanvas();
-
-// ==========================================
-// 5. REGISTRO PWA
-// ==========================================
+// Yo registro el Service Worker para PWA solo en producción
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
-    navigator.serviceWorker.register('./sw.js').catch(() => {});
+    navigator.serviceWorker.register('./sw.js').catch(() => {
+      // El juego funciona igual sin SW — no es crítico
+    });
   });
 }
+
+export default game;
