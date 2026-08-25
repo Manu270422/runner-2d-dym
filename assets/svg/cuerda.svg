@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 55" width="160" height="55">
+  <!-- Postes de los extremos -->
+  <rect x="0" y="5" width="8" height="50" rx="2" fill="#5a3a1a"/>
+  <rect x="152" y="5" width="8" height="50" rx="2" fill="#5a3a1a"/>
+  <!-- Cuerda principal (curva catenaria) -->
+  <path d="M8,18 Q80,32 152,18" fill="none" stroke="#8B6030" stroke-width="3" stroke-linecap="round"/>
+  <!-- Hilos trenzados -->
+  <path d="M8,18 Q80,34 152,18" fill="none" stroke="#c8a050" stroke-width="1" stroke-dasharray="6,4" opacity="0.6"/>
+  <!-- Cascabel 1 -->
+  <g transform="translate(38,26)">
+    <circle r="6" fill="#d4a830" stroke="#a07820" stroke-width="1.5"/>
+    <circle r="2.5" fill="#b88820" cy="1"/>
+    <line x1="0" y1="-6" x2="0" y2="-10" stroke="#a07820" stroke-width="1.5"/>
+    <circle cx="0" cy="-11" r="2" fill="#c8a030" stroke="#a07820" stroke-width="1"/>
+    <line x1="-2" y1="3" x2="2" y2="3" stroke="#8B6020" stroke-width="1"/>
+  </g>
+  <!-- Cascabel 2 -->
+  <g transform="translate(80,31)">
+    <circle r="6" fill="#d4a830" stroke="#a07820" stroke-width="1.5"/>
+    <circle r="2.5" fill="#b88820" cy="1"/>
+    <line x1="0" y1="-6" x2="0" y2="-10" stroke="#a07820" stroke-width="1.5"/>
+    <circle cx="0" cy="-11" r="2" fill="#c8a030" stroke="#a07820" stroke-width="1"/>
+    <line x1="-2" y1="3" x2="2" y2="3" stroke="#8B6020" stroke-width="1"/>
+  </g>
+  <!-- Cascabel 3 -->
+  <g transform="translate(122,26)">
+    <circle r="6" fill="#d4a830" stroke="#a07820" stroke-width="1.5"/>
+    <circle r="2.5" fill="#b88820" cy="1"/>
+    <line x1="0" y1="-6" x2="0" y2="-10" stroke="#a07820" stroke-width="1.5"/>
+    <circle cx="0" cy="-11" r="2" fill="#c8a030" stroke="#a07820" stroke-width="1"/>
+    <line x1="-2" y1="3" x2="2" y2="3" stroke="#8B6020" stroke-width="1"/>
+  </g>
+</svg>

@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 70" width="120" height="70">
+  <!-- Pilar izquierdo -->
+  <rect x="4" y="20" width="12" height="50" rx="2" fill="#8B1a1a"/>
+  <rect x="5" y="21" width="4" height="48" fill="#cc2a2a" opacity="0.3"/>
+  <!-- Pilar derecho -->
+  <rect x="104" y="20" width="12" height="50" rx="2" fill="#8B1a1a"/>
+  <rect x="105" y="21" width="4" height="48" fill="#cc2a2a" opacity="0.3"/>
+  <!-- Viga superior (kasagi) - rota e inclinada -->
+  <rect x="0" y="4" width="120" height="10" rx="3" fill="#8B1a1a" transform="rotate(-3,60,9)"/>
+  <rect x="1" y="5" width="116" height="3" fill="#cc2a2a" opacity="0.3" transform="rotate(-3,60,9)"/>
+  <!-- Extremos curvados de la viga -->
+  <rect x="-4" y="2" width="14" height="8" rx="4" fill="#6b1010" transform="rotate(-3,60,9)"/>
+  <rect x="110" y="2" width="14" height="8" rx="4" fill="#6b1010" transform="rotate(-3,60,9)"/>
+  <!-- Viga inferior (shimaki) -->
+  <rect x="8" y="18" width="104" height="7" rx="2" fill="#6b1010"/>
+  <!-- Grietas / daño -->
+  <line x1="35" y1="4" x2="40" y2="18" stroke="#3a0808" stroke-width="1.5" opacity="0.7"/>
+  <line x1="80" y1="4" x2="77" y2="15" stroke="#3a0808" stroke-width="1.5" opacity="0.7"/>
+  <!-- Cuerda/cadena que cuelga entre pilares (la que debes esquivar) -->
+  <path d="M16,30 Q60,42 104,30" fill="none" stroke="#888" stroke-width="2" stroke-dasharray="4,2"/>
+  <!-- Cascabeles -->
+  <circle cx="40" cy="37" r="3" fill="#c8a030" stroke="#a07820" stroke-width="1"/>
+  <circle cx="60" cy="40" r="3" fill="#c8a030" stroke="#a07820" stroke-width="1"/>
+  <circle cx="80" cy="37" r="3" fill="#c8a030" stroke="#a07820" stroke-width="1"/>
+  <!-- Musgo / deterioro -->
+  <rect x="4" y="50" width="12" height="6" fill="#2a5a2a" opacity="0.5" rx="1"/>
+  <rect x="104" y="50" width="12" height="6" fill="#2a5a2a" opacity="0.5" rx="1"/>
+</svg>

@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" width="50" height="50">
+  <!-- Sombra -->
+  <ellipse cx="25" cy="48" rx="20" ry="3" fill="#000" opacity="0.3"/>
+  <!-- Cara frontal -->
+  <rect x="2" y="8" width="46" height="40" rx="2" fill="#8B5E2A"/>
+  <!-- Cara superior -->
+  <polygon points="2,8 8,2 50,2 46,8" fill="#A67C40"/>
+  <!-- Cara lateral derecha -->
+  <polygon points="46,8 50,2 50,42 46,48" fill="#6B4420"/>
+  <!-- Tablones horizontales -->
+  <line x1="2" y1="22" x2="48" y2="22" stroke="#6B4420" stroke-width="1.5"/>
+  <line x1="2" y1="36" x2="48" y2="36" stroke="#6B4420" stroke-width="1.5"/>
+  <!-- Tablones verticales -->
+  <line x1="16" y1="8" x2="16" y2="48" stroke="#6B4420" stroke-width="1.5"/>
+  <line x1="32" y1="8" x2="32" y2="48" stroke="#6B4420" stroke-width="1.5"/>
+  <!-- Cruz de refuerzo -->
+  <line x1="2" y1="8" x2="48" y2="48" stroke="#5a3818" stroke-width="1" opacity="0.5"/>
+  <line x1="48" y1="8" x2="2" y2="48" stroke="#5a3818" stroke-width="1" opacity="0.5"/>
+  <!-- Brillo superior -->
+  <polygon points="2,8 8,2 50,2 46,8" fill="white" opacity="0.08"/>
+  <!-- Símbolo japonés (kanji) -->
+  <text x="25" y="32" text-anchor="middle" fill="#5a3818" font-size="16" font-family="serif" opacity="0.6">木</text>
+</svg>

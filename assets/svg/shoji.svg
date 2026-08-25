@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 55 85" width="55" height="85">
+  <!-- Marco de madera -->
+  <rect x="2" y="2" width="51" height="83" rx="3" fill="#8B6020" stroke="#6B4010" stroke-width="2"/>
+  <!-- Panel de papel (shoji) -->
+  <rect x="6" y="6" width="43" height="75" fill="#f0e8d0" opacity="0.9"/>
+  <!-- Grid del papel (cuadriculado tradicional) -->
+  <line x1="6" y1="27" x2="49" y2="27" stroke="#c8b888" stroke-width="1"/>
+  <line x1="6" y1="48" x2="49" y2="48" stroke="#c8b888" stroke-width="1"/>
+  <line x1="6" y1="69" x2="49" y2="69" stroke="#c8b888" stroke-width="1"/>
+  <line x1="20" y1="6" x2="20" y2="81" stroke="#c8b888" stroke-width="1"/>
+  <line x1="35" y1="6" x2="35" y2="81" stroke="#c8b888" stroke-width="1"/>
+  <!-- Grieta diagonal (papel roto parcialmente) -->
+  <path d="M28,30 L38,55 L30,60" fill="none" stroke="#4a3010" stroke-width="1.5" opacity="0.5"/>
+  <!-- Sombra interior del marco -->
+  <rect x="6" y="6" width="43" height="3" fill="#c8b070" opacity="0.5"/>
+  <rect x="6" y="6" width="3" height="75" fill="#c8b070" opacity="0.5"/>
+  <!-- Kanji decorativo -->
+  <text x="28" y="46" text-anchor="middle" fill="#8B6020" font-size="22" font-family="serif" opacity="0.35">忍</text>
+  <!-- Luz translúcida que pasa -->
+  <rect x="6" y="6" width="43" height="75" fill="#ffe8a0" opacity="0.06"/>
+</svg>

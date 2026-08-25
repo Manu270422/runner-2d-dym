@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 140 60" width="140" height="60">
+  <!-- Tallo principal -->
+  <rect x="10" y="22" width="16" height="35" rx="4" fill="#4a7a2a"/>
+  <rect x="13" y="22" width="4" height="35" fill="#5a9a35" opacity="0.6"/>
+  <!-- Nodos del bambú (nudos) -->
+  <ellipse cx="18" cy="30" rx="10" ry="3" fill="#3a6020"/>
+  <ellipse cx="18" cy="40" rx="10" ry="3" fill="#3a6020"/>
+  <ellipse cx="18" cy="50" rx="10" ry="3" fill="#3a6020"/>
+  <!-- Tallo derecho -->
+  <rect x="114" y="18" width="16" height="40" rx="4" fill="#4a7a2a"/>
+  <rect x="117" y="18" width="4" height="40" fill="#5a9a35" opacity="0.6"/>
+  <ellipse cx="122" cy="28" rx="10" ry="3" fill="#3a6020"/>
+  <ellipse cx="122" cy="38" rx="10" ry="3" fill="#3a6020"/>
+  <ellipse cx="122" cy="48" rx="10" ry="3" fill="#3a6020"/>
+  <!-- Rama horizontal principal que bloquea -->
+  <path d="M18,22 Q70,8 122,18" fill="none" stroke="#4a7a2a" stroke-width="12" stroke-linecap="round"/>
+  <path d="M18,22 Q70,8 122,18" fill="none" stroke="#5a9a35" stroke-width="4" stroke-linecap="round" opacity="0.5"/>
+  <!-- Hojas -->
+  <ellipse cx="35" cy="12" rx="12" ry="5" fill="#3a9a20" transform="rotate(-30,35,12)"/>
+  <ellipse cx="55" cy="6" rx="14" ry="5" fill="#4aaa28" transform="rotate(-15,55,6)"/>
+  <ellipse cx="75" cy="4" rx="12" ry="5" fill="#3a9a20" transform="rotate(5,75,4)"/>
+  <ellipse cx="95" cy="7" rx="13" ry="5" fill="#4aaa28" transform="rotate(20,95,7)"/>
+  <ellipse cx="112" cy="13" rx="11" ry="5" fill="#3a9a20" transform="rotate(30,112,13)"/>
+  <!-- Hojas más pequeñas -->
+  <ellipse cx="45" cy="8" rx="8" ry="3" fill="#5acc30" transform="rotate(-40,45,8)" opacity="0.8"/>
+  <ellipse cx="85" cy="5" rx="9" ry="3" fill="#5acc30" transform="rotate(10,85,5)" opacity="0.8"/>
+</svg>

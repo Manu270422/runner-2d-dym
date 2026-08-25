@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Runner 2D DyM</title>
+
+  <link rel="manifest" href="/runner-2d-dym/assets/manifest-Cg3d5lUo.json" />
+  <meta name="theme-color" content="#0f1623" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Runner 2D DyM" />
+  <link rel="apple-touch-icon" href="/runner-2d-dym/assets/logo-3UJsQRps.png" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      background: #0a0c12;
+      overflow: hidden;
+      user-select: none;
+      overscroll-behavior: none;
+      /* Yo elimino el tap highlight en móviles para una experiencia más limpia */
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    #game-container {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Yo oculto el canvas hasta que Phaser lo gestione para evitar flash blanco */
+    canvas {
+      display: block;
+      /* Yo fuerzo GPU layer para compositor del navegador */
+      transform: translateZ(0);
+      will-change: transform;
+      /* Yo desactivo gestos del navegador sobre el canvas */
+      touch-action: none;
+    }
+
+    /* Pantalla de carga mínima antes de que Phaser arranque */
+    #boot-screen {
+      position: fixed;
+      inset: 0;
+      background: #0a0c12;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      z-index: 100;
+      transition: opacity 0.4s ease;
+    }
+    #boot-screen.hidden { opacity: 0; pointer-events: none; }
+
+    #boot-screen .logo-text {
+      font-family: monospace;
+      font-size: clamp(18px, 4vw, 28px);
+      color: #00f2ff;
+      letter-spacing: 4px;
+      text-shadow: 0 0 20px #00f2ff80;
+    }
+    #boot-screen .sub-text {
+      font-family: monospace;
+      font-size: 12px;
+      color: #ffffff40;
+      letter-spacing: 2px;
+    }
+    .boot-bar {
+      width: 180px;
+      height: 2px;
+      background: #ffffff10;
+      border-radius: 2px;
+      overflow: hidden;
+    }
+    .boot-bar-fill {
+      height: 100%;
+      background: #00f2ff;
+      width: 0%;
+      animation: boot-load 1.2s ease forwards;
+      box-shadow: 0 0 8px #00f2ff;
+    }
+    @keyframes boot-load {
+      to { width: 100%; }
+    }
+  </style>
+  <script type="module" crossorigin src="/runner-2d-dym/assets/index-CalE6IOb.js"></script>
+  <link rel="modulepreload" crossorigin href="/runner-2d-dym/assets/phaser-0RJB29YE.js">
+</head>
+<body>
+
+  <!-- Pantalla de boot mientras Phaser carga -->
+  <div id="boot-screen">
+    <div class="logo-text">RUNNER 2D</div>
+    <div class="sub-text">DyM · LOADING SYSTEM</div>
+    <div class="boot-bar"><div class="boot-bar-fill"></div></div>
+  </div>
+
+  <div id="game-container"></div>
+
+</body>
+</html>
