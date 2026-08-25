@@ -303,7 +303,7 @@ const LEVEL_PALETTES = [
 
 ## 📄 Licencia
 
-MIT © 2025 **Carlos Manuel Turizo Hernández** — DyM
+MIT © 2026 **Carlos Manuel Turizo Hernández** — DyM
 
 ---
 
