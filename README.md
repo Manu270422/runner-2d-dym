@@ -2,126 +2,172 @@
 
 # 🥷 Runner 2D DyM
 
-### Endless Runner 2D · Estética Cyberpunk Ninja · Phaser 3 Edition
+**Endless runner 2D cyberpunk-ninja, construido con Phaser 3 + Vite — instalable como PWA y jugable 100% offline.**
 
-[![Made with Phaser](https://img.shields.io/badge/Made%20with-Phaser%203.88-00f2ff?style=flat-square&logo=javascript)](https://phaser.io)
-[![PWA Ready](https://img.shields.io/badge/PWA-Ready-9b59ff?style=flat-square)](https://web.dev/progressive-web-apps/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-ff3355?style=flat-square)](LICENSE)
-[![GitHub Pages](https://img.shields.io/badge/Deploy-GitHub%20Pages-00f2ff?style=flat-square)](https://manu270422.github.io/runner-2d-dym/)
+[![Jugar ahora](https://img.shields.io/badge/▶_Jugar-runner.elmundodemanu.com-00f2ff?style=for-the-badge)](https://runner.elmundodemanu.com/)
+[![Phaser](https://img.shields.io/badge/Phaser-3.88-1D1D26?style=flat&logo=javascript&logoColor=00f2ff)](https://phaser.io)
+[![Vite](https://img.shields.io/badge/Vite-5.x-9b59ff?style=flat&logo=vite&logoColor=white)](https://vitejs.dev)
+[![PWA](https://img.shields.io/badge/PWA-instalable_y_offline-00f2ff?style=flat)]()
+[![License: MIT](https://img.shields.io/badge/License-MIT-ff3355?style=flat)]()
 
-<br/>
+> *Un ninja cyberpunk que nunca se detiene. Tú decides si sobrevive.*
 
-> **Un ninja cyberpunk que nunca se detiene. Tú decides si sobrevive.**
-
-<br/>
-
-[🎮 Jugar en línea](https://manu270422.github.io/runner-2d-dym/) · [📦 Descargar APK](https://manu270422.github.io/runner-2d-dym/) · [🐛 Reportar bug](https://github.com/Manu270422/runner-2d-dym/issues)
+[🎮 Jugar](https://runner.elmundodemanu.com/) · [📦 Repositorio](https://github.com/Manu270422/runner-2d-dym) · [🏗️ Arquitectura](#️-arquitectura) · [🚀 Desarrollo local](#-instalación-y-desarrollo-local)
 
 </div>
 
 ---
 
-## 📸 Capturas
+## 📖 Sobre el proyecto
 
-> *El ninja corre a través de una ciudad cyberpunk con edificios iluminados, obstáculos ninja SVG y efectos de partículas.*
+**Runner 2D DyM** es un *endless runner* de scroll lateral: el ninja avanza solo, y el jugador decide cuándo saltar y cuándo deslizarse para esquivar una ciudad cyberpunk llena de obstáculos ninja. La dificultad escala sola con el tiempo — más velocidad, más tipos de obstáculo, menos margen de error — hasta que un choque termina la carrera.
+
+Igual que el resto de mis proyectos, no es solo "que funcione": está construido con las mismas prácticas que se esperan de un juego web serio — **cero assets pesados o binarios innecesarios** (los obstáculos son SVG vectoriales, el ninja se dibuja por código, el sonido se sintetiza), **object pooling real** para no generar presión sobre el garbage collector, y una **PWA instalable que funciona sin conexión** gracias a un Service Worker propio.
 
 ---
 
-## 🎮 Gameplay
+## ✨ Características
 
-Tu ninja avanza automáticamente por un mundo cyberpunk lleno de obstáculos que requieren reflejos rápidos y decisiones precisas.
+- 🏃 **Movimiento con feel de plataformero pulido**: *Coyote Time* (margen de gracia para saltar tras caer de un borde) y *Jump Buffering* (recuerda el salto si se presionó un instante antes de tocar tierra).
+- 🩹 **Slide dinámico**: reduce la hitbox del ninja en tiempo real para esquivar obstáculos aéreos, con un pequeño boost de velocidad durante la maniobra.
+- 🛡️ **Escudo temporal**: aparece a partir del nivel 3 y absorbe un golpe completo.
+- 📈 **Dificultad progresiva y predecible**: cada 15 segundos sube de nivel — más velocidad, más tipos de obstáculo desbloqueados — nunca aleatoria injusta.
+- 🎨 **9 obstáculos temáticos en SVG vectorial** (katana, torii, bambú, hoguera, entre otros), nítidos en cualquier resolución y de apenas 1–3 KB cada uno.
+- 🔊 **Audio sintetizado + efectos `.wav` livianos**: sistema de sonido propio sobre Web Audio API.
+- 📱 **PWA real**: instalable en Android, iOS y escritorio, con Service Worker (`Cache First` para assets, `Network First` para HTML) que permite jugar sin conexión.
+- ⚡ **Object pooling de obstáculos**: se reciclan en vez de crearse/destruirse en cada spawn — cero asignaciones de memoria nuevas durante el juego.
+- 🖥️ **Responsive real**: `Scale.FIT` de Phaser adapta el canvas a cualquier pantalla sin escribir código de responsive a mano.
 
-### Controles
+---
 
-| Acción | PC (Teclado) | Móvil / Táctil |
-|--------|-------------|----------------|
-| **Saltar** | `Espacio` · `W` · `↑` | Toque mitad superior |
-| **Slide / Agacharse** | `S` · `↓` | Toque mitad inferior |
-| **Pausar** | `ESC` | Botón PAUSA |
+## 🎮 Controles
 
-### Mecánicas principales
-
-- **Coyote Time** — puedes saltar brevemente después de caer de un borde
-- **Jump Buffering** — el input de salto se recuerda si llegó un poco antes de tocar tierra
-- **Slide dinámico** — reduce la hitbox del ninja para esquivar obstáculos aéreos
-- **Escudo temporal** — aparece a partir del Nivel 3 y absorbe un golpe completo
-- **Dificultad progresiva** — cada 15 segundos el sistema acelera y desbloquea nuevos obstáculos
+| Acción | Teclado | Táctil |
+|---|---|---|
+| Saltar | `Espacio` · `W` · `↑` | Toque en la mitad superior de la pantalla |
+| Deslizarse (slide) | `S` · `↓` | Toque en la mitad inferior de la pantalla |
+| Pausar | `ESC` | Botón de pausa en pantalla |
 
 ---
 
 ## 🗡️ Obstáculos
 
-Los obstáculos son archivos **SVG escalables** — se ven nítidos en cualquier resolución y pesan muy poco.
+Cada obstáculo tiene su propia hitbox ajustada (más pequeña que el sprite visual, para que las colisiones se sientan justas) y un nivel mínimo de aparición.
 
-### Saltar (evasión normal)
-
-| Obstáculo | Descripción |
-|-----------|-------------|
-| **Katana** | Espadas clavadas en el suelo, verticales o inclinadas |
-| **Roca** | Peñascos con musgo y grietas |
-| **Tronco** | Árbol caído con corteza animada |
-| **Caja / Cajas apiladas** | Suministros de madera con kanji decorativo |
-| **Hoguera ninja** | Fogata enemiga con llamas y humo |
-| **Muro Shoji** | Panel de papel japonés con marco de madera |
-
-### Slide / Agacharse (evasión baja)
+**Se evaden saltando:**
 
 | Obstáculo | Descripción |
-|-----------|-------------|
-| **Torii roto** | Arco japonés caído — pasa por debajo |
-| **Bambú** | Ramas dobladas a media altura |
-| **Cuerda con cascabeles** | Trampa de alarma ninja colgante |
+|---|---|
+| Katana | Espadas clavadas en el suelo, verticales o inclinadas |
+| Roca | Peñascos con musgo y grietas |
+| Tronco | Árbol caído |
+| Caja / Cajas apiladas | Suministros de madera con kanji decorativo |
+| Hoguera ninja | Fogata enemiga con llamas y humo |
+| Muro Shoji | Panel de papel japonés con marco de madera |
+
+**Se evaden deslizándose (slide):**
+
+| Obstáculo | Descripción |
+|---|---|
+| Torii roto | Arco japonés caído — pasa por debajo |
+| Bambú | Ramas dobladas a media altura |
+| Cuerda con cascabeles | Trampa de alarma ninja colgante |
 
 ---
 
 ## 🏗️ Arquitectura
 
+```mermaid
+flowchart LR
+    subgraph Escenas de Phaser
+        Boot[BootScene] --> Preload[PreloadScene<br/>carga SVG + audio]
+        Preload --> Menu[MenuScene<br/>ninja idle animado]
+        Menu --> Play[PlayScene<br/>gameplay completo]
+        Play --> Over[GameOverScene<br/>scoreboard]
+        Over -.reintentar.-> Play
+    end
+
+    Play --> Systems[Systems]
+    Systems --> Difficulty[DifficultySystem<br/>nivel · velocidad · spawn gap]
+    Systems --> Spawn[SpawnSystem<br/>object pool de obstáculos SVG]
+    Systems --> Audio[AudioSystem<br/>síntesis Web Audio API]
+    Systems --> Storage[StorageSystem<br/>high score en localStorage]
+
+    Play --> Entities[Entities]
+    Entities --> Player[Player<br/>coyote time · jump buffer · slide]
+    Entities --> Shield[ShieldPowerUp]
+
+    Play --> UI[HUD<br/>score · nivel · barra de escudo]
+```
+
+### Cómo escala la dificultad
+
+`DifficultySystem` sube de nivel cada 15 segundos y, en cascada, todo lo demás reacciona: la velocidad global sube, el tiempo entre obstáculos baja, y se desbloquean tipos de obstáculo nuevos — nunca aparecen todos desde el inicio.
+
+```mermaid
+flowchart TD
+    T[Cada 15s: DifficultySystem sube de nivel] --> V[Velocidad += 16 px/s<br/>hasta un tope de 450]
+    T --> G[Intervalo entre obstáculos<br/>se acorta progresivamente]
+    T --> U{¿Nivel alcanzado?}
+    U -- "Nivel 2" --> O2[Desbloquea obstáculos altos]
+    U -- "Nivel 3" --> O3[Desbloquea obstáculos aéreos<br/>+ Escudo disponible]
+    U -- "Nivel 4" --> O4[Desbloquea obstáculos anchos]
+    U -- "Nivel 5" --> O5[Desbloquea obstáculos aéreos medios]
+    U -- "Nivel 7" --> O7[Desbloquea combos de obstáculos]
+
+    style T fill:#00f2ff,color:#000
+    style U fill:#9b59ff,color:#fff
+```
+
+---
+
+## 🛠️ Stack tecnológico
+
+| Herramienta | Versión | Uso |
+|---|---|---|
+| [Phaser](https://phaser.io) | 3.88 | Motor de juego 2D — física Arcade, escenas, Scale Manager |
+| [Vite](https://vitejs.dev) | 5.x | Bundler y servidor de desarrollo con hot-reload |
+| Web Audio API | Nativa | Sintetizador de efectos de sonido |
+| Service Worker | Nativo | PWA — juego 100% jugable offline |
+| SVG | Estándar W3C | Todos los obstáculos, vectoriales y livianos |
+
+---
+
+## 📂 Estructura del proyecto
+
 ```
 runner-2d-dym/
-│
 ├── public/
+│   ├── CNAME                      # dominio propio: runner.elmundodemanu.com
 │   └── assets/
-│       ├── audio/          ← Efectos de sonido (.wav)
-│       ├── images/         ← Logo y recursos gráficos
-│       └── svg/            ← Obstáculos vectoriales (SVG)
-│           ├── katana.svg
-│           ├── hoguera.svg
-│           ├── caja.svg
-│           ├── torii.svg
-│           ├── bambu.svg
-│           ├── roca.svg
-│           ├── shoji.svg
-│           ├── cuerda.svg
-│           └── tronco.svg
+│       ├── audio/                  # jump.wav, hit.wav
+│       ├── images/                 # logo (ícono PWA)
+│       └── svg/                    # 9 obstáculos vectoriales
 │
 ├── src/
-│   ├── main.js             ← Entry point + configuración Phaser
-│   │
+│   ├── main.js                     # Entry point + configuración de Phaser
 │   ├── config/
-│   │   └── GameConfig.js   ← Todas las constantes (GROUND_Y, velocidad, etc.)
-│   │
+│   │   └── GameConfig.js           # Todas las constantes de balance (GAMEPLAY.*)
 │   ├── scenes/
-│   │   ├── BootScene.js    ← Oculta splash y arranca PreloadScene
-│   │   ├── PreloadScene.js ← Carga assets con barra de progreso
-│   │   ├── MenuScene.js    ← Menú principal + ninja idle animado
-│   │   ├── PlayScene.js    ← Gameplay completo
-│   │   └── GameOverScene.js← Pantalla de fin + scoreboard
-│   │
+│   │   ├── BootScene.js            # Oculta el splash y arranca PreloadScene
+│   │   ├── PreloadScene.js         # Carga assets con barra de progreso
+│   │   ├── MenuScene.js            # Menú principal
+│   │   ├── PlayScene.js            # Gameplay completo
+│   │   └── GameOverScene.js        # Pantalla de fin + puntaje
 │   ├── entities/
-│   │   └── Player.js       ← Ninja con animación procedural + slide
-│   │
+│   │   ├── Player.js                # Ninja — animación procedural, coyote time, slide
+│   │   └── ShieldPowerUp.js         # Power-up coleccionable
 │   ├── systems/
-│   │   ├── AudioSystem.js  ← Sintetizador retro (sin archivos externos requeridos)
-│   │   ├── DifficultySystem.js ← Velocidad y desbloqueo por nivel
-│   │   ├── SpawnSystem.js  ← Object pooling de obstáculos SVG
-│   │   └── StorageSystem.js ← Persistencia con localStorage
-│   │
+│   │   ├── AudioSystem.js           # Sintetizador de sonido
+│   │   ├── DifficultySystem.js      # Velocidad y desbloqueo de obstáculos por nivel
+│   │   ├── SpawnSystem.js           # Object pooling de obstáculos SVG
+│   │   └── StorageSystem.js         # Persistencia de high score en localStorage
 │   └── ui/
-│       └── HUD.js          ← Score, nivel, barra de escudo
+│       └── HUD.js                   # Score, nivel, barra de escudo
 │
 ├── index.html
-├── manifest.json           ← PWA manifest
-├── sw.js                   ← Service Worker (offline)
+├── manifest.json                   # PWA manifest
+├── sw.js                            # Service Worker (offline)
 ├── vite.config.js
 └── package.json
 ```
@@ -129,24 +175,20 @@ runner-2d-dym/
 ### Decisiones de arquitectura
 
 | Decisión | Por qué |
-|----------|---------|
-| **Phaser 3 + Arcade Physics** | Motor maduro y optimizado, perfecto para runners 2D |
-| **SVG para obstáculos** | Escalables sin pixelación, pesan ~1-3KB cada uno |
-| **Sintetizador Web Audio** | Audio sin archivos externos → funciona offline al instante |
-| **Object Pooling** | Los obstáculos se reciclan en lugar de crearse/destruirse → 0 GC pressure |
-| **Gráficos procedurales (ninja)** | El personaje se dibuja con código → no requiere spritesheet externo |
-| **Scale Manager FIT** | Phaser gestiona el responsive automáticamente en todos los dispositivos |
+|---|---|
+| **Phaser 3 + Arcade Physics** | Motor maduro, ligero, perfecto para un runner 2D — no hace falta más. |
+| **SVG para obstáculos** | Escalables sin pixelación y de apenas 1–3 KB cada uno. |
+| **Sintetizador Web Audio + `.wav` livianos** | Audio funcional sin depender de archivos pesados. |
+| **Object pooling en `SpawnSystem`** | Los obstáculos se reciclan en vez de crearse/destruirse en cada spawn → cero presión sobre el garbage collector. |
+| **Ninja dibujado por código en `Player.js`** | No requiere spritesheet externo; fácil de reemplazar por uno real si se desea (documentado más abajo). |
+| **Scale Manager `FIT`** | Phaser gestiona el responsive automáticamente en cualquier dispositivo, sin CSS manual. |
+| **Gravedad gestionada en `Player`, no en la config global de Arcade** | Da control fino sobre coyote time y jump buffering, imposible de lograr solo con la gravedad estándar del motor. |
 
 ---
 
 ## 🚀 Instalación y desarrollo local
 
-### Requisitos
-
-- Node.js ≥ 18
-- npm ≥ 9
-
-### Comandos
+**Requisitos:** Node.js ≥ 18, npm ≥ 9.
 
 ```bash
 # Clonar el repositorio
@@ -156,7 +198,7 @@ cd runner-2d-dym
 # Instalar dependencias
 npm install
 
-# Servidor de desarrollo (con hot-reload)
+# Servidor de desarrollo con hot-reload
 npm run dev
 # → http://localhost:3000
 
@@ -164,37 +206,21 @@ npm run dev
 npm run build
 # → carpeta /dist lista para deploy
 
-# Preview del build
+# Previsualizar el build
 npm run preview
 ```
 
 ---
 
-## 📱 PWA — Instalación como App
+## 📱 PWA — instalable como app
 
-Runner 2D DyM es una **Progressive Web App** instalable:
+Runner 2D DyM es una **Progressive Web App** real, no solo una etiqueta:
 
-- **Android** → Chrome → Menú → "Añadir a pantalla de inicio"
-- **iOS** → Safari → Compartir → "Añadir a pantalla de inicio"
-- **PC** → Chrome/Edge → Icono de instalación en la barra de direcciones
+- **Android** → Chrome → Menú → *"Añadir a pantalla de inicio"*
+- **iOS** → Safari → Compartir → *"Añadir a pantalla de inicio"*
+- **PC** → Chrome/Edge → ícono de instalación en la barra de direcciones
 
-El juego funciona **completamente offline** gracias al Service Worker.
-
----
-
-## 🌐 Deploy en GitHub Pages
-
-```bash
-# 1. Hacer build
-npm run build
-
-# 2. Subir la carpeta /dist a tu rama gh-pages
-# (con gh-pages CLI)
-npm install -g gh-pages
-gh-pages -d dist
-
-# O configurar GitHub Actions para auto-deploy en cada push a main
-```
+El Service Worker (`sw.js`) precachea el shell de la app (`index.html`, `offline.html`, `manifest.json`) con estrategia *Cache First* para assets y *Network First* para HTML, así que **el juego funciona completamente sin conexión** una vez instalado.
 
 ---
 
@@ -205,47 +231,37 @@ gh-pages -d dist
 Editar `src/config/GameConfig.js`:
 
 ```js
-BASE_SPEED:    220,    // Velocidad inicial (px/seg)
-MAX_SPEED:     450,    // Velocidad máxima
-LEVEL_DURATION: 15,   // Segundos entre cada nivel
-SPAWN_MIN_GAP:  0.75, // Mínimo tiempo entre obstáculos
+BASE_SPEED:      220,   // Velocidad inicial (px/seg)
+MAX_SPEED:       450,   // Velocidad máxima
+LEVEL_DURATION:   15,   // Segundos entre cada nivel
+SPAWN_MIN_GAP:   0.75,  // Mínimo tiempo entre obstáculos
 ```
 
 ### Agregar un obstáculo nuevo
 
-**1. Crear el SVG** en `public/assets/svg/mi_obstaculo.svg`
+1. Crear el SVG en `public/assets/svg/mi_obstaculo.svg`.
+2. Registrarlo en `GameConfig.js`, dentro de `ASSETS.svg`.
+3. Se carga automáticamente en `PreloadScene.js` al estar en `ASSETS.svg`.
+4. Definirlo en `SpawnSystem.js`:
 
-**2. Registrarlo en `GameConfig.js`:**
-```js
-svg: {
-  // ...existentes...
-  mi_obstaculo: 'assets/svg/mi_obstaculo.svg'
-}
-```
-
-**3. Cargarlo en `PreloadScene.js`** (se carga automáticamente si está en `ASSETS.svg`)
-
-**4. Definirlo en `SpawnSystem.js`:**
 ```js
 const OBSTACLE_DEFS = {
   // ...existentes...
   mi_obstaculo: {
     key: 'mi_obstaculo',
-    evasion: 'jump',       // 'jump' o 'slide'
-    w: 60, h: 80,          // dimensiones en pantalla
-    posY: -80,             // -altura (cuánto sube desde el suelo)
-    hitBox: { ox: 8, oy: 8, w: 44, h: 64 },  // hitbox justa (más pequeña que el visual)
-    minLevel: 2            // nivel mínimo para que aparezca
+    evasion: 'jump',        // 'jump' o 'slide'
+    w: 60, h: 80,            // dimensiones en pantalla
+    hitBox: { ox: 8, oy: 8, w: 44, h: 64 }, // hitbox justa (menor que el visual)
+    minLevel: 2               // nivel mínimo para que aparezca
   }
 };
 ```
 
-**5. Desbloquearlo automáticamente** — `DifficultySystem` lo mostrará en el nivel indicado.
+5. `DifficultySystem` lo mostrará automáticamente al llegar al nivel indicado.
 
-### Agregar sprites reales al ninja
+### Reemplazar el ninja por sprites reales
 
-En `src/entities/Player.js`, el método `_draw()` dibuja el ninja con Graphics.
-Para reemplazarlo con un spritesheet:
+`Player.js` dibuja al ninja por código en su método `_draw()`. Para usar un spritesheet en su lugar:
 
 ```js
 // En PreloadScene:
@@ -253,11 +269,10 @@ this.load.spritesheet('ninja', 'assets/sprites/ninja.png', {
   frameWidth: 48, frameHeight: 64
 });
 
-// En Player.js, reemplaza this._gfx por:
+// En Player.js, reemplazar el Graphics por:
 this._sprite = scene.add.sprite(0, -22, 'ninja');
 this.add(this._sprite);
 
-// Y crea animaciones:
 scene.anims.create({
   key: 'run',
   frames: scene.anims.generateFrameNumbers('ninja', { start: 0, end: 7 }),
@@ -265,49 +280,30 @@ scene.anims.create({
 });
 ```
 
-### Modificar paletas de color por nivel
-
-En `PlayScene.js`, array `LEVEL_PALETTES`:
-```js
-const LEVEL_PALETTES = [
-  { bg: 0x0a0c12, groundTop: 0x0d1520, groundLine: 0x00f2ff, ... },
-  // Agregar más paletas aquí
-];
-```
-
 ---
 
-## ⚡ Performance
+## ⚡ Rendimiento
 
 | Métrica | Valor |
-|---------|-------|
+|---|---|
 | Bundle JS del juego | ~30 KB (gzip) |
 | Phaser (chunk separado) | ~340 KB (gzip) |
-| SVG de obstáculos | 1-3 KB c/u |
+| SVG de obstáculos | 1–3 KB c/u |
 | FPS objetivo | 60 FPS constantes |
-| Estrategia GC | Object pooling — 0 allocations en runtime |
+| Estrategia de memoria | Object pooling — sin nuevas asignaciones en runtime |
 
 ---
 
-## 🛠️ Stack tecnológico
+## 👤 Autor
 
-| Herramienta | Versión | Uso |
-|-------------|---------|-----|
-| [Phaser](https://phaser.io) | 3.88 | Motor de juego |
-| [Vite](https://vitejs.dev) | 5.x | Bundler + Dev server |
-| Web Audio API | Nativa | Sintetizador de sonido |
-| Service Worker | Nativo | PWA offline |
-| SVG | Estándar W3C | Gráficos de obstáculos |
-
----
-
-## 📄 Licencia
-
-MIT © 2026 **Carlos Manuel Turizo Hernández** — DyM
+**Carlos Manuel Turizo Hernández** ([@Manu270422](https://github.com/Manu270422)) — DyM
+Estudiante de Ingeniería Informática (UNIPAZ) y Análisis y Desarrollo de Software (SENA), Colombia · [El Mundo de Manu](https://elmundodemanu.com)
 
 ---
 
 <div align="center">
+
+**[🎮 Probar Runner 2D DyM ahora →](https://runner.elmundodemanu.com/)**
 
 Hecho con 🥷 y mucho café en Colombia 🇨🇴
 
